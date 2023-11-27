@@ -1,0 +1,82 @@
+---
+interface Props {
+	title: string;
+	text: string;
+}
+
+const { title, text } = Astro.props as Props;
+---
+
+<script>
+	const BtnAccordion = document.querySelectorAll('.btn-accordion');
+	const OptionsAccordion = document.querySelectorAll('.option-accordion');
+
+	BtnAccordion.forEach((elementBtn, index) =>
+		elementBtn.addEventListener('click', () => {
+			elementBtn.classList.toggle('selected');
+			OptionsAccordion[index].classList.toggle('show-option');
+		}),
+	);
+</script>
+
+<div class='accordion-option'>
+	<button class='btn-accordion'>{title}</button>
+	<p class='option-accordion'>{text}</p>
+</div>
+
+<style>
+	.accordion-option {
+		padding: 5px 0;
+		border-bottom: 1px solid var(--lightGreyshBlue);
+	}
+
+	.btn-accordion {
+		background-color: transparent;
+		border: none;
+		padding: 10px 10px 10px 0;
+		font-size: 15px;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		width: 100%;
+		color: var(--veryDarkDesaturedBlue);
+		text-align: left;
+	}
+
+	.btn-accordion::after {
+		content: '';
+		background: url('./images/icon-arrow-down.svg') no-repeat center;
+		height: 20px;
+		width: 20px;
+		display: inline-block;
+		position: relative;
+	}
+
+	.btn-accordion:hover {
+		cursor: pointer;
+	}
+
+	.option-accordion {
+		color: var(--darkGreyshBlue);
+		padding: 10px 30px 10px 0;
+		display: none;
+	}
+
+	.show-option {
+		display: inline-block;
+	}
+
+	.selected {
+		font-weight: 700;
+	}
+
+	.selected::after {
+		transform: rotate(180deg);
+	}
+
+	@media (max-width: 992px) {
+		.btn-accordion {
+			font-size: 12px;
+		}
+	}
+</style>
